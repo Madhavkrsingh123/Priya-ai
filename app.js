@@ -2,7 +2,12 @@ const $ = (s) => document.querySelector(s);
 const chat=$('#chat'), form=$('#composer'), input=$('#message');
 const panel=$('#settingsPanel'), apiInput=$('#apiKey'), modelInput=$('#model'), voiceOn=$('#voiceOn');
 apiInput.value=localStorage.getItem('priya_key')||'';
-modelInput.value=localStorage.getItem('priya_model')||'gemini-3.8-flash';
+let savedModel=localStorage.getItem('priya_model');
+if(!savedModel || savedModel==='gemini-2.5-flash') {
+  savedModel='gemini-3.8-flash';
+  localStorage.setItem('priya_model', savedModel);
+}
+modelInput.value=savedModel;
 voiceOn.checked=localStorage.getItem('priya_voice')!=='false';
 function openSettings(){panel.hidden=false;$('#settingsBtn').setAttribute('aria-expanded','true');}
 function closeSettings(){panel.hidden=true;$('#settingsBtn').setAttribute('aria-expanded','false');}
@@ -17,7 +22,8 @@ async function reply(message){
  const key=localStorage.getItem('priya_key');
  if(!key){bubble('Mujhse AI chat shuru karne ke liye upar ⚙️ Settings kholo aur Gemini API key save karo. 💗','priya');openSettings();return;}
  const loading=bubble('Priya typing…','priya typing');history.push({role:'user',parts:[{text:message}]});
- try{const model=localStorage.getItem('priya_model')||'gemini-3.8-flash';const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:systemPrompt}]},contents:history.slice(-16),generationConfig:{temperature:.9,maxOutputTokens:500}})});const data=await r.json();if(!r.ok)throw new Error(data.error?.message||'API request failed');const answer=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('').trim()||'Abhi reply nahi aa paaya. Dobara try karoge?';history.push({role:'model',parts:[{text:answer}]});loading.className='bubble priya';loading.textContent=answer;speak(answer);
+ try{let model=localStorage.getItem('priya_model')||'gemini-3.8-flash';
+if(model==='gemini-2.5-flash'){model='gemini-3.8-flash';localStorage.setItem('priya_model',model);}const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:systemPrompt}]},contents:history.slice(-16),generationConfig:{temperature:.9,maxOutputTokens:500}})});const data=await r.json();if(!r.ok)throw new Error(data.error?.message||'API request failed');const answer=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('').trim()||'Abhi reply nahi aa paaya. Dobara try karoge?';history.push({role:'model',parts:[{text:answer}]});loading.className='bubble priya';loading.textContent=answer;speak(answer);
  }catch(e){loading.className='bubble priya';loading.textContent='Oops! '+e.message+' — API key/model check karo.';history.pop();}
 }
 form.addEventListener('submit',e=>{e.preventDefault();const m=input.value.trim();if(!m)return;input.value='';bubble(m,'me');reply(m);});
