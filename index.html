@@ -8,23 +8,21 @@
 </head>
 <body>
 <div class="app">
-<header><div class="avatar">P</div><div class="brand"><h1>Priya <span>♥</span></h1><small>AI companion · Online when connected</small></div><button id="settingsBtn" class="icon" aria-label="Settings">⚙</button></header>
-<main id="chat" aria-live="polite">
-<div class="welcome"><div class="bigheart">♥</div><h2>Hey! Main Priya hoon 💗</h2><p>Jab chaaho mujhse baat karo. Aaj tumhara din kaisa raha?</p></div>
-</main>
-<div class="quick"><button data-msg="Priya, aaj mera mood kaisa lag raha hai?">😊 Mood</button><button data-msg="Mujhe ek sweet compliment do">💗 Compliment</button><button data-msg="Koi funny baat sunao">😂 Funny</button></div>
-<form id="composer"><button type="button" id="micBtn" class="icon" title="Speak">🎙️</button><input id="message" autocomplete="off" placeholder="Priya se kuch bhi kaho..." maxlength="2000"><button class="send" type="submit">➤</button></form>
-<footer>Priya is an AI, not a real person. Be kind to yourself. 💕</footer>
-</div>
-<dialog id="settings">
-<form method="dialog" class="settings">
-<div class="settingHead"><h2>Priya settings</h2><button class="icon" value="cancel">✕</button></div>
-<label>Gemini API key <input id="apiKey" type="password" placeholder="Paste your API key"></label>
-<p class="hint">AI chat ke liye API key chahiye. Google AI Studio par free-tier key mil sakti hai, lekin usage limits/availability badal sakti hain. Is personal app mein key isi device ke browser storage mein rahegi; ise kisi ke saath share na karein.</p>
+<header><div class="avatar">P</div><div class="brand"><h1>Priya <span>♥</span></h1><small>AI companion · Online when connected</small></div><button type="button" id="settingsBtn" class="icon" aria-label="Settings" aria-expanded="false">⚙️</button></header>
+<section id="settingsPanel" class="settingsPanel" hidden>
+<form id="settingsForm" class="settings" autocomplete="off">
+<div class="settingHead"><h2>Priya settings</h2><button type="button" id="closeSettings" class="icon" aria-label="Close settings">✕</button></div>
+<label>Gemini API key <input id="apiKey" type="password" placeholder="Paste your API key" autocomplete="off"></label>
+<p class="hint">API key isi phone ke browser storage mein save hogi. Ise kisi ke saath share na karein. Free usage limits apply ho sakti hain.</p>
 <label>Model <input id="model" value="gemini-2.5-flash"></label>
 <label class="check"><input id="voiceOn" type="checkbox" checked> Priya ke replies ko awaaz mein sunao</label>
-<button id="saveSettings" class="save" value="default">Save settings</button>
+<button id="saveSettings" class="save" type="submit">Save settings</button>
+<p id="settingsStatus" class="hint" role="status"></p>
 </form>
-</dialog>
-<script src="app.js"></script>
+</section>
+<main id="chat" aria-live="polite"><div class="welcome"><div class="bigheart">♥</div><h2>Hey! Main Priya hoon 💗</h2><p>Jab chaaho mujhse baat karo. Aaj tumhara din kaisa raha?</p></div></main>
+<div class="quick"><button type="button" data-msg="Priya, aaj mera mood kaisa lag raha hai?">😊 Mood</button><button type="button" data-msg="Mujhe ek sweet compliment do">💗 Compliment</button><button type="button" data-msg="Koi funny baat sunao">😂 Funny</button></div>
+<form id="composer"><button type="button" id="micBtn" class="icon" title="Speak">🎙️</button><input id="message" autocomplete="off" placeholder="Priya se kuch bhi kaho..." maxlength="2000"><button class="send" type="submit">➤</button></form>
+<footer>Priya is an AI, not a real person. Be kind to yourself. 💕</footer>
+</div><script src="app.js"></script>
 </body></html>
