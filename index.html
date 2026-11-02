@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#170d1d"><meta name="description" content="Priya - your friendly AI companion">
-<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css?v=3">
 <title>Priya ❤️</title>
 </head>
 <body>
 <div class="app">
-<header><div class="avatar">P</div><div class="brand"><h1>Priya <span>♥</span></h1><small>AI companion · Online when connected</small></div><button type="button" id="settingsBtn" class="icon" aria-label="Settings" aria-expanded="false">⚙️</button></header>
+<header><div class="avatar">P</div><div class="brand"><h1>Priya <span>♥</span></h1><small>AI companion · Online when connected</small></div><button type="button" id="settingsBtn" class="icon" aria-label="Settings" aria-expanded="false" onclick="document.getElementById('settingsPanel').hidden=false;document.getElementById('settingsBtn').setAttribute('aria-expanded','true')">⚙️</button></header>
 <section id="settingsPanel" class="settingsPanel" hidden>
 <form id="settingsForm" class="settings" autocomplete="off">
 <div class="settingHead"><h2>Priya settings</h2><button type="button" id="closeSettings" class="icon" aria-label="Close settings">✕</button></div>
@@ -24,5 +24,5 @@
 <div class="quick"><button type="button" data-msg="Priya, aaj mera mood kaisa lag raha hai?">😊 Mood</button><button type="button" data-msg="Mujhe ek sweet compliment do">💗 Compliment</button><button type="button" data-msg="Koi funny baat sunao">😂 Funny</button></div>
 <form id="composer"><button type="button" id="micBtn" class="icon" title="Speak">🎙️</button><input id="message" autocomplete="off" placeholder="Priya se kuch bhi kaho..." maxlength="2000"><button class="send" type="submit">➤</button></form>
 <footer>Priya is an AI, not a real person. Be kind to yourself. 💕</footer>
-</div><script src="app.js"></script>
+</div><script src="app.js?v=3"></script>
 </body></html>
